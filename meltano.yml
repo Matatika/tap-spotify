@@ -1,0 +1,27 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: tap-spotify
+plugins:
+  extractors:
+  - name: tap-spotify
+    namespace: tap_spotify
+    # TODO: To test using Meltano, replace with absolute path
+    #       to the tap-spotify.sh script:
+    executable: ./tap-spotify.sh
+    capabilities:
+    - state
+    - catalog
+    - discover
+    config:
+      start_date: '2010-01-01T00:00:00Z'
+    settings:
+    # TODO: To configure using Meltano, declare settings and their types here:
+    - name: username
+    - name: password
+      kind: password
+    - name: start_date
+      value: '2010-01-01T00:00:00Z'
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
