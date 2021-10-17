@@ -1,8 +1,8 @@
 """REST client handling, including SpotifyStream base class."""
 
 import requests
-from pathlib import Path
-from typing import Any, Dict, Optional, Union, List, Iterable
+from typing import Any, Dict, Optional, Iterable
+from urllib.parse import parse_qsl, urlsplit
 
 from memoization import cached
 
@@ -12,22 +12,13 @@ from singer_sdk.streams import RESTStream
 from tap_spotify.auth import SpotifyAuthenticator
 
 
-SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
-
-
 class SpotifyStream(RESTStream):
     """Spotify stream class."""
 
-    url_base = "https://api.mysample.com"
+    url_base = "https://api.spotify.com/v1"
 
-    # OR use a dynamic url_base:
-    # @property
-    # def url_base(self) -> str:
-    #     """Return the API URL root, configurable via tap settings."""
-    #     return self.config["api_url"]
-
-    records_jsonpath = "$[*]"  # Or override `parse_response`.
-    next_page_token_jsonpath = "$.next_page"  # Or override `get_next_page_token`.
+    records_jsonpath = "$.items[*]"
+    next_page_token_jsonpath = "$.next"
 
     @property
     @cached
@@ -47,31 +38,14 @@ class SpotifyStream(RESTStream):
         self, response: requests.Response, previous_token: Optional[Any]
     ) -> Optional[Any]:
         """Return a token for identifying next page or None if no more pages."""
-        # TODO: If pagination is required, return a token which can be used to get the
-        #       next page. If this is the final page, return "None" to end the
-        #       pagination loop.
-        if self.next_page_token_jsonpath:
-            all_matches = extract_jsonpath(
-                self.next_page_token_jsonpath, response.json()
-            )
-            first_match = next(iter(all_matches), None)
-            next_page_token = first_match
-        else:
-            next_page_token = response.headers.get("X-Next-Page", None)
-
-        return next_page_token
+        all_matches = extract_jsonpath(self.next_page_token_jsonpath, response.json())
+        return next(iter(all_matches), None)
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
     ) -> Dict[str, Any]:
         """Return a dictionary of values to be used in URL parameterization."""
-        params: dict = {}
-        if next_page_token:
-            params["page"] = next_page_token
-        if self.replication_key:
-            params["sort"] = "asc"
-            params["order_by"] = self.replication_key
-        return params
+        return dict(parse_qsl(urlsplit(next_page_token).query))
 
     def prepare_request_payload(
         self, context: Optional[dict], next_page_token: Optional[Any]
