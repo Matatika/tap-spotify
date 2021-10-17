@@ -11,6 +11,7 @@ from tap_spotify.streams import (
     UsersStream,
     GroupsStream,
 )
+
 # TODO: Compile a list of custom stream types here
 #       OR rewrite discover_streams() below with your custom logic.
 STREAM_TYPES = [
@@ -21,32 +22,27 @@ STREAM_TYPES = [
 
 class TapSpotify(Tap):
     """Spotify tap class."""
+
     name = "tap-spotify"
 
-    # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
         th.Property(
-            "auth_token",
+            "client_id",
             th.StringType,
             required=True,
-            description="The token to authenticate against the API service"
+            description="App client ID",
         ),
         th.Property(
-            "project_ids",
-            th.ArrayType(th.StringType),
-            required=True,
-            description="Project IDs to replicate"
-        ),
-        th.Property(
-            "start_date",
-            th.DateTimeType,
-            description="The earliest record date to sync"
-        ),
-        th.Property(
-            "api_url",
+            "client_secret",
             th.StringType,
-            default="https://api.mysample.com",
-            description="The url for the API service"
+            required=True,
+            description="App client secret",
+        ),
+        th.Property(
+            "refresh_token",
+            th.StringType,
+            required=True,
+            description="Refresh token",
         ),
     ).to_dict()
 
