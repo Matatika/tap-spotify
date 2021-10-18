@@ -15,6 +15,9 @@ STREAM_TYPES = [
     streams.UserTopArtistsShortTermStream,
     streams.UserTopArtistsMediumTermStream,
     streams.UserTopArtistsLongTermStream,
+    streams.GlobalTopTracksDailyStream,
+    streams.GlobalTopTracksWeeklyStream,
+    streams.GlobalViralTracksDailyStream,
 ]
 
 

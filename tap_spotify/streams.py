@@ -107,3 +107,32 @@ class UserTopArtistsLongTermStream(SpotifyStream):
         params = super().get_url_params(context, next_page_token)
         params["time_range"] = "long_term"
         return params
+
+
+class _PlaylistTracksStream(SpotifyStream):
+    """Define playlist tracks stream."""
+
+    records_jsonpath = "$.tracks.items[*].track"
+    primary_keys = ["id"]
+    schema = TrackObject.schema
+
+
+class GlobalTopTracksDailyStream(_PlaylistTracksStream):
+    """Define global top tracks daily stream."""
+
+    name = "global_top_tracks_daily"
+    path = "/playlists/37i9dQZEVXbMDoHDwVN2tF"
+
+
+class GlobalTopTracksWeeklyStream(_PlaylistTracksStream):
+    """Define global top tracks weekly stream."""
+
+    name = "global_top_tracks_weekly"
+    path = "/playlists/37i9dQZEVXbNG2KDcFcKOF"
+
+
+class GlobalViralTracksDailyStream(_PlaylistTracksStream):
+    """Define global viral tracks daily stream."""
+
+    name = "global_viral_tracks_daily"
+    path = "/playlists/37i9dQZEVXbLiRSasKsNU9"
