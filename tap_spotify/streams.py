@@ -10,7 +10,7 @@ from tap_spotify.schemas.track import TrackObject
 class UserTopTracksShortTermStream(SpotifyStream):
     """Define user top tracks short-term stream."""
 
-    name = "user_top_tracks_st"
+    name = "user_top_tracks_st_stream"
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
@@ -27,7 +27,7 @@ class UserTopTracksShortTermStream(SpotifyStream):
 class UserTopTracksMediumTermStream(SpotifyStream):
     """Define user top tracks medium-term stream."""
 
-    name = "user_top_tracks_mt"
+    name = "user_top_tracks_mt_stream"
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
@@ -44,7 +44,7 @@ class UserTopTracksMediumTermStream(SpotifyStream):
 class UserTopTracksLongTermStream(SpotifyStream):
     """Define user top tracks long-term stream."""
 
-    name = "user_top_tracks_lt"
+    name = "user_top_tracks_lt_stream"
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
@@ -61,7 +61,7 @@ class UserTopTracksLongTermStream(SpotifyStream):
 class UserTopArtistsShortTermStream(SpotifyStream):
     """Define user top artists short-term stream."""
 
-    name = "user_top_artists_st"
+    name = "user_top_artists_st_stream"
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
@@ -78,7 +78,7 @@ class UserTopArtistsShortTermStream(SpotifyStream):
 class UserTopArtistsMediumTermStream(SpotifyStream):
     """Define user top artists medium-term stream."""
 
-    name = "user_top_artists_mt"
+    name = "user_top_artists_mt_stream"
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
@@ -95,7 +95,7 @@ class UserTopArtistsMediumTermStream(SpotifyStream):
 class UserTopArtistsLongTermStream(SpotifyStream):
     """Define user top artists long-term stream."""
 
-    name = "user_top_artists_lt"
+    name = "user_top_artists_lt_stream"
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
@@ -120,19 +120,19 @@ class _PlaylistTracksStream(SpotifyStream):
 class GlobalTopTracksDailyStream(_PlaylistTracksStream):
     """Define global top tracks daily stream."""
 
-    name = "global_top_tracks_daily"
+    name = "global_top_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbMDoHDwVN2tF"
 
 
 class GlobalTopTracksWeeklyStream(_PlaylistTracksStream):
     """Define global top tracks weekly stream."""
 
-    name = "global_top_tracks_weekly"
+    name = "global_top_tracks_weekly_stream"
     path = "/playlists/37i9dQZEVXbNG2KDcFcKOF"
 
 
 class GlobalViralTracksDailyStream(_PlaylistTracksStream):
     """Define global viral tracks daily stream."""
 
-    name = "global_viral_tracks_daily"
+    name = "global_viral_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbLiRSasKsNU9"
