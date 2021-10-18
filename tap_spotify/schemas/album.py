@@ -5,7 +5,6 @@ from singer_sdk.typing import (
     Property,
     ArrayType,
     CustomType,
-    DateTimeType,
     IntegerType,
     StringType,
 )
@@ -28,7 +27,7 @@ class AlbumObject(CustomType):
         Property("id", StringType),
         Property("images", ArrayType(ImageObject())),
         Property("name", StringType),
-        Property("release_date", DateTimeType),
+        Property("release_date", StringType),
         Property("release_date_precision", StringType),
         Property("restrictions", AlbumRestrictionObject()),
         Property("total_tracks", IntegerType),
