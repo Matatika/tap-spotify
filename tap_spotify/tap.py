@@ -5,12 +5,16 @@ from typing import List
 from singer_sdk import Tap, Stream
 from singer_sdk import typing as th  # JSON schema typing helpers
 
-from tap_spotify.streams import UserTopTracksStream, UserTopArtistsStream
+from tap_spotify import streams
 
 
 STREAM_TYPES = [
-    UserTopTracksStream,
-    UserTopArtistsStream,
+    streams.UserTopTracksShortTermStream,
+    streams.UserTopTracksMediumTermStream,
+    streams.UserTopTracksLongTermStream,
+    streams.UserTopArtistsShortTermStream,
+    streams.UserTopArtistsMediumTermStream,
+    streams.UserTopArtistsLongTermStream,
 ]
 
 
