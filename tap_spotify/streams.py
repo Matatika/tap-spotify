@@ -40,7 +40,6 @@ class _SyncedAtStream(RESTStream):
 class _UserTopItemsStream(_RankStream, _SyncedAtStream, SpotifyStream):
     """Define user top items stream."""
 
-    primary_keys = ["id"]
     time_range = "medium_term"
     limit = 49
 
@@ -131,7 +130,6 @@ class _PlaylistTracksStream(_RankStream, _SyncedAtStream, SpotifyStream):
     """Define playlist tracks stream."""
 
     records_jsonpath = "$.tracks.items[*].track"
-    primary_keys = ["id"]
     schema = TrackObject.extend_with(Rank, SyncedAt).schema
 
 
