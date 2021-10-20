@@ -42,12 +42,14 @@ class _UserTopItemsStream(_RankStream, _SyncedAtStream, SpotifyStream):
 
     primary_keys = ["id"]
     time_range = "medium_term"
+    limit = 49
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
     ) -> Dict[str, Any]:
         params = super().get_url_params(context, next_page_token)
         params["time_range"] = self.time_range
+        params["limit"] = self.limit
         return params
 
 
