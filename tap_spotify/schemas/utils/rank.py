@@ -1,4 +1,4 @@
-"""Schema definition for indexed schema wrapper"""
+"""Schema definition for rank schema wrapper"""
 
 from singer_sdk.typing import (
     PropertiesList,
@@ -9,10 +9,10 @@ from singer_sdk.typing import (
 )
 
 
-class Indexed(CustomType):
+class Rank(CustomType):
 
     schema = PropertiesList(
-        Property("index", IntegerType),
+        Property("rank", IntegerType),
     ).to_dict()
 
     def __init__(self, json_type: JSONTypeHelper = None) -> dict:

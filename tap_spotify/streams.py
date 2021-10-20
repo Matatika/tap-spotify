@@ -1,6 +1,5 @@
 """Stream type classes for tap-spotify."""
 
-from itertools import count
 from typing import Any, Dict, Optional
 
 from singer_sdk.streams.rest import RESTStream
@@ -8,29 +7,30 @@ from singer_sdk.streams.rest import RESTStream
 from tap_spotify.client import SpotifyStream
 from tap_spotify.schemas.artist import ArtistObject
 from tap_spotify.schemas.track import TrackObject
-from tap_spotify.schemas.utils.indexed import Indexed
+from tap_spotify.schemas.utils.rank import Rank
 
 
-class _IndexedStream(RESTStream):
-    """Define an indexed stream."""
+class _RankStream(RESTStream):
+    """Define a rank stream."""
 
-    index = 1
+    rank = 1
 
     def post_process(self, row: dict, context: Optional[dict]) -> dict:
-        """Apply index to stream"""
-        row["index"] = self.index
-        self.index += 1
+        """Apply rank integer to stream"""
+        row = super().post_process(row, context)
+        row["rank"] = self.rank
+        self.rank += 1
         return row
 
 
-class UserTopTracksShortTermStream(_IndexedStream, SpotifyStream):
+class UserTopTracksShortTermStream(_RankStream, SpotifyStream):
     """Define user top tracks short-term stream."""
 
     name = "user_top_tracks_st_stream"
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
-    schema = Indexed(ArtistObject()).schema
+    schema = Rank(TrackObject()).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -40,14 +40,14 @@ class UserTopTracksShortTermStream(_IndexedStream, SpotifyStream):
         return params
 
 
-class UserTopTracksMediumTermStream(_IndexedStream, SpotifyStream):
+class UserTopTracksMediumTermStream(_RankStream, SpotifyStream):
     """Define user top tracks medium-term stream."""
 
     name = "user_top_tracks_mt_stream"
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
-    schema = Indexed(ArtistObject()).schema
+    schema = Rank(TrackObject()).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -57,14 +57,14 @@ class UserTopTracksMediumTermStream(_IndexedStream, SpotifyStream):
         return params
 
 
-class UserTopTracksLongTermStream(_IndexedStream, SpotifyStream):
+class UserTopTracksLongTermStream(_RankStream, SpotifyStream):
     """Define user top tracks long-term stream."""
 
     name = "user_top_tracks_lt_stream"
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
-    schema = Indexed(ArtistObject()).schema
+    schema = Rank(TrackObject()).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -74,14 +74,14 @@ class UserTopTracksLongTermStream(_IndexedStream, SpotifyStream):
         return params
 
 
-class UserTopArtistsShortTermStream(_IndexedStream, SpotifyStream):
+class UserTopArtistsShortTermStream(_RankStream, SpotifyStream):
     """Define user top artists short-term stream."""
 
     name = "user_top_artists_st_stream"
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
-    schema = Indexed(ArtistObject()).schema
+    schema = Rank(ArtistObject()).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -91,14 +91,14 @@ class UserTopArtistsShortTermStream(_IndexedStream, SpotifyStream):
         return params
 
 
-class UserTopArtistsMediumTermStream(_IndexedStream, SpotifyStream):
+class UserTopArtistsMediumTermStream(_RankStream, SpotifyStream):
     """Define user top artists medium-term stream."""
 
     name = "user_top_artists_mt_stream"
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
-    schema = Indexed(ArtistObject()).schema
+    schema = Rank(ArtistObject()).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -108,14 +108,14 @@ class UserTopArtistsMediumTermStream(_IndexedStream, SpotifyStream):
         return params
 
 
-class UserTopArtistsLongTermStream(_IndexedStream, SpotifyStream):
+class UserTopArtistsLongTermStream(_RankStream, SpotifyStream):
     """Define user top artists long-term stream."""
 
     name = "user_top_artists_lt_stream"
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
-    schema = Indexed(ArtistObject()).schema
+    schema = Rank(ArtistObject()).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -125,12 +125,12 @@ class UserTopArtistsLongTermStream(_IndexedStream, SpotifyStream):
         return params
 
 
-class _PlaylistTracksStream(_IndexedStream, SpotifyStream):
+class _PlaylistTracksStream(_RankStream, SpotifyStream):
     """Define playlist tracks stream."""
 
     records_jsonpath = "$.tracks.items[*].track"
     primary_keys = ["id"]
-    schema = Indexed(TrackObject()).schema
+    schema = Rank(TrackObject()).schema
 
 
 class GlobalTopTracksDailyStream(_PlaylistTracksStream):
