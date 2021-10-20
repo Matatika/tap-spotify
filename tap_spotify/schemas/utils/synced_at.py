@@ -1,12 +1,11 @@
 """Schema definition for synced at schema wrapper"""
 
-from tap_spotify.schemas.utils.schema_extender import SchemaExtender
-
 from singer_sdk.typing import PropertiesList, Property, DateTimeType
 
+from tap_spotify.schemas.utils.custom_object import CustomObject
 
-class SyncedAt(SchemaExtender):
 
-    schema = PropertiesList(
+class SyncedAt(CustomObject):
+    properties = PropertiesList(
         Property("synced_at", DateTimeType),
-    ).to_dict()
+    )

@@ -1,21 +1,14 @@
 """Schema definitions for followers objects"""
 
-from singer_sdk.typing import (
-    PropertiesList,
-    Property,
-    CustomType,
-    IntegerType,
-    StringType,
-)
+from singer_sdk.typing import PropertiesList, Property, IntegerType, StringType
+
+from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
-class FollowersObject(CustomType):
+class FollowersObject(CustomObject):
     """https://developer.spotify.com/documentation/web-api/reference/#object-followersobject"""
 
-    schema = PropertiesList(
+    properties = PropertiesList(
         Property("href", StringType),
         Property("total", IntegerType),
-    ).to_dict()
-
-    def __init__(self):
-        super().__init__(self.schema)
+    )

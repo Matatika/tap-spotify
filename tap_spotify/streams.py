@@ -44,7 +44,7 @@ class UserTopTracksShortTermStream(_RankStream, _SyncedAtStream, SpotifyStream):
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
-    schema = Rank(SyncedAt(TrackObject())).schema
+    schema = TrackObject.extend_with(Rank, SyncedAt).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -61,7 +61,7 @@ class UserTopTracksMediumTermStream(_RankStream, _SyncedAtStream, SpotifyStream)
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
-    schema = Rank(SyncedAt(TrackObject())).schema
+    schema = TrackObject.extend_with(Rank, SyncedAt).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -78,7 +78,7 @@ class UserTopTracksLongTermStream(_RankStream, _SyncedAtStream, SpotifyStream):
     path = "/me/top/tracks"
     primary_keys = ["id"]
     replication_key = None
-    schema = Rank(SyncedAt(TrackObject())).schema
+    schema = TrackObject.extend_with(Rank, SyncedAt).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -95,7 +95,7 @@ class UserTopArtistsShortTermStream(_RankStream, _SyncedAtStream, SpotifyStream)
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
-    schema = Rank(SyncedAt(ArtistObject())).schema
+    schema = ArtistObject.extend_with(Rank, SyncedAt).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -112,7 +112,7 @@ class UserTopArtistsMediumTermStream(_RankStream, _SyncedAtStream, SpotifyStream
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
-    schema = Rank(SyncedAt(ArtistObject())).schema
+    schema = ArtistObject.extend_with(Rank, SyncedAt).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -129,7 +129,7 @@ class UserTopArtistsLongTermStream(_RankStream, _SyncedAtStream, SpotifyStream):
     path = "/me/top/artists"
     primary_keys = ["id"]
     replication_key = None
-    schema = Rank(SyncedAt(ArtistObject())).schema
+    schema = ArtistObject.extend_with(Rank, SyncedAt).schema
 
     def get_url_params(
         self, context: Optional[dict], next_page_token: Optional[Any]
@@ -144,7 +144,7 @@ class _PlaylistTracksStream(_RankStream, _SyncedAtStream, SpotifyStream):
 
     records_jsonpath = "$.tracks.items[*].track"
     primary_keys = ["id"]
-    schema = Rank(SyncedAt(TrackObject())).schema
+    schema = TrackObject.extend_with(Rank, SyncedAt).schema
 
 
 class GlobalTopTracksDailyStream(_PlaylistTracksStream):

@@ -1,32 +1,23 @@
 """Schema definitions for external objects"""
 
-from singer_sdk.typing import (
-    PropertiesList,
-    Property,
-    CustomType,
-    StringType,
-)
+from singer_sdk.typing import PropertiesList, Property, StringType
+
+from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
-class ExternalIdObject(CustomType):
+class ExternalIdObject(CustomObject):
     """https://developer.spotify.com/documentation/web-api/reference/#object-externalidobject"""
 
-    schema = PropertiesList(
+    properties = PropertiesList(
         Property("ean", StringType),
         Property("isrc", StringType),
         Property("upc", StringType),
-    ).to_dict()
-
-    def __init__(self):
-        super(ExternalIdObject, self).__init__(self.schema)
+    )
 
 
-class ExternalUrlObject(CustomType):
+class ExternalUrlObject(CustomObject):
     """https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject"""
 
-    schema = PropertiesList(
+    properties = PropertiesList(
         Property("spotify", StringType),
-    ).to_dict()
-
-    def __init__(self):
-        super().__init__(self.schema)
+    )
