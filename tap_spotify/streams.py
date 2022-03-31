@@ -85,12 +85,14 @@ class UserTopTracksShortTermStream(
     """Define user top tracks short-term stream."""
 
     name = "user_top_tracks_st_stream"
+    primary_keys = ["rank", "synced_at"]
 
 
 class UserTopTracksMediumTermStream(_UserTopTracksStream):
     """Define user top tracks medium-term stream."""
 
     name = "user_top_tracks_mt_stream"
+    primary_keys = ["rank", "synced_at"]
 
 
 class UserTopTracksLongTermStream(
@@ -100,6 +102,7 @@ class UserTopTracksLongTermStream(
     """Define user top tracks long-term stream."""
 
     name = "user_top_tracks_lt_stream"
+    primary_keys = ["rank", "synced_at"]
 
 
 class UserTopArtistsShortTermStream(
@@ -109,12 +112,14 @@ class UserTopArtistsShortTermStream(
     """Define user top artists short-term stream."""
 
     name = "user_top_artists_st_stream"
+    primary_keys = ["rank", "synced_at"]
 
 
 class UserTopArtistsMediumTermStream(_UserTopArtistsStream):
     """Define user top artists medium-term stream."""
 
     name = "user_top_artists_mt_stream"
+    primary_keys = ["rank", "synced_at"]
 
 
 class UserTopArtistsLongTermStream(
@@ -124,6 +129,7 @@ class UserTopArtistsLongTermStream(
     """Define user top artists long-term stream."""
 
     name = "user_top_artists_lt_stream"
+    primary_keys = ["rank", "synced_at"]
 
 
 class _PlaylistTracksStream(_RankStream, _SyncedAtStream, SpotifyStream):
@@ -131,6 +137,7 @@ class _PlaylistTracksStream(_RankStream, _SyncedAtStream, SpotifyStream):
 
     records_jsonpath = "$.tracks.items[*].track"
     schema = TrackObject.extend_with(Rank, SyncedAt).schema
+    primary_keys = ["rank", "synced_at"]
 
 
 class GlobalTopTracksDailyStream(_PlaylistTracksStream):
@@ -138,6 +145,7 @@ class GlobalTopTracksDailyStream(_PlaylistTracksStream):
 
     name = "global_top_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbMDoHDwVN2tF"
+    primary_keys = ["rank", "synced_at"]
 
 
 class GlobalTopTracksWeeklyStream(_PlaylistTracksStream):
@@ -145,6 +153,7 @@ class GlobalTopTracksWeeklyStream(_PlaylistTracksStream):
 
     name = "global_top_tracks_weekly_stream"
     path = "/playlists/37i9dQZEVXbNG2KDcFcKOF"
+    primary_keys = ["rank", "synced_at"]
 
 
 class GlobalViralTracksDailyStream(_PlaylistTracksStream):
@@ -152,3 +161,4 @@ class GlobalViralTracksDailyStream(_PlaylistTracksStream):
 
     name = "global_viral_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbLiRSasKsNU9"
+    primary_keys = ["rank", "synced_at"]
