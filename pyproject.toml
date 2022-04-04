@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-spotify"
-version = "0.0.1"
+version = "0.3.0"
 description = "`tap-spotify` is a Singer tap for Spotify, built with the Meltano SDK for Singer Taps."
 authors = ["Reuben Frankel"]
 keywords = [
