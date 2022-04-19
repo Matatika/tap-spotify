@@ -6,17 +6,25 @@ Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
 ## Installation
 
-- [ ] `Developer TODO:` Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
+Note: Please check the [Releases](https://github.com/Matatika/tap-spotify/releases) page for a list of versions.
+
+Installing a specific version (recommended for stability):
 
 ```bash
-pipx install tap-spotify
+# Replace 'vX.Y.Z' in the below with the latest version number here:
+#   https://github.com/Matatika/tap-spotify/releases
+pipx install git+https://github.com/Matatika/tap-spotify.git@vX.Y.Z
+```
+
+Installing the latest repo version (recommended only for initial testing):
+
+```bash
+pipx install git+https://github.com/Matatika/tap-spotify.git@main
 ```
 
 ## Configuration
 
 ### Accepted Config Options
-
-- [ ] `Developer TODO:` Provide a list of config options accepted by the tap.
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -27,7 +35,26 @@ tap-spotify --about
 
 ### Source Authentication and Authorization
 
-- [ ] `Developer TODO:` If your tap requires special access on the source system, or any special authentication requirements, provide those here.
+You first will need to have a Spotify account and you will need to create a Spotify "App" though the Spotify Developer interface.
+
+Once you have created a Spotify App, use Postman or the excellent [Thunderclient VS Code extension](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) to get an authorization token.
+
+From Thunderclient:
+
+1. Click `New Request` to open a new Thunderclient tab.
+2. Click `Auth` and then `OAuth2`.
+3. In the `Generate New Token` section, complete the form using the following guide:
+   - `Grant Type`: `Authorization Code` (the default)
+   - `Auth URL`: `https://accounts.spotify.com/authorize`
+   - `Token URL`: `https://accounts.spotify.com/api/token`
+   - `Callback URL`: `https://www.thunderclient.com/oauth/callback` (the default)
+   - `Client ID`: `<your app's client ID>`
+   - `Client Secret`: `<your app's client secret>`
+   - `Scope`: `playlist-read-private playlist-modify-private`
+   - `State`: `(leave blank)` (the default)
+   - `Send Auth`: `As Auth Header` (the default)
+4. Click `Generate Token` to generate your token.
+5. Store your newly generated token as the `refresh_token` value in tap config.
 
 ## Usage
 
@@ -43,7 +70,7 @@ tap-spotify --config CONFIG --discover > ./catalog.json
 
 ## Developer Resources
 
-- [ ] `Developer TODO:` As a first step, scan the entire project for the text "`TODO:`" and complete any recommended steps, deleting the "TODO" references once completed.
+These resources are for repo contributors and developers.
 
 ### Initialize your Development Environment
 
@@ -54,8 +81,7 @@ poetry install
 
 ### Create and Run Tests
 
-Create tests within the `tap_spotify/tests` subfolder and
-  then run:
+Create tests within the `tap_spotify/tests` subfolder and then run:
 
 ```bash
 poetry run pytest
