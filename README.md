@@ -39,6 +39,13 @@ You first will need to have a Spotify account and you will need to create a Spot
 
 Once you have created a Spotify App, use Postman or the excellent [Thunderclient VS Code extension](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) to get an authorization token.
 
+Create your Spotify App:
+
+You can follow the Spotify Developers API instructions to create your spotify App. the only extra step you'll need to take is to add one or both of these to your allowed redirect URLs:
+
+- `https://www.thunderclient.com/oauth/callback` (If using ThunderClient)
+- `https://www.getpostman.com/oauth2/callback` (If using Postman)
+
 From Thunderclient:
 
 1. Click `New Request` to open a new Thunderclient tab.
