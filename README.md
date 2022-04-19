@@ -35,7 +35,7 @@ tap-spotify --about
 
 ### Source Authentication and Authorization
 
-You first will need to have a Spotify account and you will need to create a Spotify "App" though the Spotify Developer interface.
+You first will need to have a Spotify account and you will need to create a Spotify "App" though the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard).
 
 Once you have created a Spotify App, use Postman or the excellent [Thunderclient VS Code extension](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) to get an authorization token.
 
