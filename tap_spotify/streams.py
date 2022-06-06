@@ -1,12 +1,13 @@
 """Stream type classes for tap-spotify."""
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Iterable, Optional
 
 from singer_sdk.streams.rest import RESTStream
 
 from tap_spotify.client import SpotifyStream
 from tap_spotify.schemas.artist import ArtistObject
+from tap_spotify.schemas.audio_features import AudioFeaturesObject
 from tap_spotify.schemas.track import TrackObject
 from tap_spotify.schemas.utils.rank import Rank
 from tap_spotify.schemas.utils.synced_at import SyncedAt
@@ -37,6 +38,42 @@ class _SyncedAtStream(RESTStream):
         return row
 
 
+class _TracksStream(SpotifyStream):
+    """Define a track stream."""
+
+    def get_records(self, context: Optional[dict]) -> Iterable[Dict[str, Any]]:
+        # get all track records
+        track_records = list(super().request_records(context))
+
+        # get all audio features records
+        # instantiate audio features stream inline and request records
+        audio_features_stream = _AudioFeaturesStream(self, track_records)
+        audio_features_records = audio_features_stream.request_records(context)
+
+        # merge track and audio features records
+        for track, audio_features in zip(track_records, audio_features_records):
+
+            # account for tracks with `null` audio features
+            row = {**(audio_features or {}), **track}
+            yield self.post_process(row, context)
+
+
+class _AudioFeaturesStream(SpotifyStream):
+    """Define an audio features stream."""
+
+    name = "_audio_features_stream"
+    path = "/audio-features"
+    records_jsonpath = "$.audio_features[*]"
+    schema = AudioFeaturesObject.schema
+
+    def __init__(self, tracks_stream: _TracksStream, track_records: Iterable[dict]):
+        super().__init__(tracks_stream._tap)
+        self._track_records = track_records
+
+    def get_url_params(self, *args, **kwargs) -> Dict[str, Any]:
+        return {"ids": ",".join([track["id"] for track in self._track_records])}
+
+
 class _UserTopItemsStream(_RankStream, _SyncedAtStream, SpotifyStream):
     """Define user top items stream."""
 
@@ -64,11 +101,11 @@ class _UserTopItemsLongTermStream(_UserTopItemsStream):
     time_range = "long_term"
 
 
-class _UserTopTracksStream(_UserTopItemsStream):
+class _UserTopTracksStream(_TracksStream, _UserTopItemsStream):
     """Define user top tracks stream."""
 
     path = "/me/top/tracks"
-    schema = TrackObject.extend_with(Rank, SyncedAt).schema
+    schema = TrackObject.extend_with(Rank, SyncedAt, AudioFeaturesObject).schema
 
 
 class _UserTopArtistsStream(_UserTopItemsStream):
@@ -132,11 +169,11 @@ class UserTopArtistsLongTermStream(
     primary_keys = ["rank", "synced_at"]
 
 
-class _PlaylistTracksStream(_RankStream, _SyncedAtStream, SpotifyStream):
+class _PlaylistTracksStream(_RankStream, _SyncedAtStream, _TracksStream):
     """Define playlist tracks stream."""
 
     records_jsonpath = "$.tracks.items[*].track"
-    schema = TrackObject.extend_with(Rank, SyncedAt).schema
+    schema = TrackObject.extend_with(Rank, SyncedAt, AudioFeaturesObject).schema
     primary_keys = ["rank", "synced_at"]
 
 
