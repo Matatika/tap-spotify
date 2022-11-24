@@ -8,9 +8,7 @@ plugins:
   extractors:
   - name: tap-spotify
     namespace: tap_spotify
-    # TODO: To test using Meltano, replace with absolute path
-    #       to the tap-spotify.sh script:
-    executable: ./tap-spotify.sh
+    pip_url: -e .
     capabilities:
     - state
     - catalog
