@@ -162,3 +162,12 @@ class GlobalViralTracksDailyStream(_PlaylistTracksStream):
     name = "global_viral_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbLiRSasKsNU9"
     primary_keys = ["rank", "synced_at"]
+
+
+class UserSavedTracksStream(_PlaylistTracksStream):
+    """Define global viral tracks daily stream."""
+
+    name = "user_saved_track_streams"
+    path = "/me/tracks"
+    schema = TrackObject
+    primary_keys = ["rank", "synced_at"]
