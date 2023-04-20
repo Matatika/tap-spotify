@@ -17,6 +17,7 @@ STREAM_TYPES = [
     streams.GlobalTopTracksDailyStream,
     streams.GlobalTopTracksWeeklyStream,
     streams.GlobalViralTracksDailyStream,
+    streams.UserSavedTracksStream,
 ]
 
 
