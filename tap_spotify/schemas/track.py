@@ -1,11 +1,11 @@
 """Schema definitions for track objects"""
 
 from singer_sdk.typing import (
-    PropertiesList,
-    Property,
     ArrayType,
     BooleanType,
     IntegerType,
+    PropertiesList,
+    Property,
     StringType,
 )
 

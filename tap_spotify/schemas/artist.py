@@ -1,10 +1,10 @@
 """Schema definitions for artist objects"""
 
 from singer_sdk.typing import (
-    PropertiesList,
-    Property,
     ArrayType,
     IntegerType,
+    PropertiesList,
+    Property,
     StringType,
 )
 

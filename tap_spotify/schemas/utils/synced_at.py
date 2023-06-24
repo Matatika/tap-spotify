@@ -1,6 +1,6 @@
 """Schema definition for synced at schema wrapper"""
 
-from singer_sdk.typing import PropertiesList, Property, DateTimeType
+from singer_sdk.typing import DateTimeType, PropertiesList, Property
 
 from tap_spotify.schemas.utils.custom_object import CustomObject
 

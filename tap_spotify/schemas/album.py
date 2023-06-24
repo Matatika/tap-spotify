@@ -1,13 +1,12 @@
 """Schema definitions for album objects"""
 
 from singer_sdk.typing import (
-    PropertiesList,
-    Property,
     ArrayType,
     IntegerType,
+    PropertiesList,
+    Property,
     StringType,
 )
-
 
 from tap_spotify.schemas.artist import ArtistObject
 from tap_spotify.schemas.external import ExternalUrlObject

@@ -1,6 +1,6 @@
 """Schema definitions for followers objects"""
 
-from singer_sdk.typing import PropertiesList, Property, IntegerType, StringType
+from singer_sdk.typing import IntegerType, PropertiesList, Property, StringType
 
 from tap_spotify.schemas.utils.custom_object import CustomObject
 
