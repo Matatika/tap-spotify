@@ -43,13 +43,27 @@ tap-spotify --config CONFIG --discover > ./catalog.json
 
 ## Developer Resources
 
-- [ ] `Developer TODO:` As a first step, scan the entire project for the text "`TODO:`" and complete any recommended steps, deleting the "TODO" references once completed.
-
 ### Initialize your Development Environment
 
 ```bash
 pipx install poetry
-poetry install
+make init
+```
+
+### Lint your Code
+
+Identify lint issues by running:
+
+```bash
+make lint
+```
+
+> If `make init` has been run, this command will execute automatically before a commit
+
+You can also fix lint issues automatically with:
+
+```bash
+make lint-fix
 ```
 
 ### Create and Run Tests
@@ -58,7 +72,7 @@ Create tests within the `tap_spotify/tests` subfolder and
   then run:
 
 ```bash
-poetry run pytest
+make test
 ```
 
 You can also test the `tap-spotify` CLI interface directly using `poetry run`:
@@ -96,5 +110,5 @@ meltano elt tap-spotify target-jsonl
 
 ### SDK Dev Guide
 
-See the [dev guide](https://sdk.meltano.com/en/latest/dev_guide.html) for more instructions on how to use the SDK to 
+See the [dev guide](https://sdk.meltano.com/en/latest/dev_guide.html) for more instructions on how to use the SDK to
 develop your own taps and targets.
