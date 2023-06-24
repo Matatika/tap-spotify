@@ -6,8 +6,6 @@ from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class ExternalIdObject(CustomObject):
-    """https://developer.spotify.com/documentation/web-api/reference/#object-externalidobject"""
-
     properties = PropertiesList(
         Property("ean", StringType),
         Property("isrc", StringType),
@@ -16,8 +14,6 @@ class ExternalIdObject(CustomObject):
 
 
 class ExternalUrlObject(CustomObject):
-    """https://developer.spotify.com/documentation/web-api/reference/#object-externalurlobject"""
-
     properties = PropertiesList(
         Property("spotify", StringType),
     )

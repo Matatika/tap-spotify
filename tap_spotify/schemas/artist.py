@@ -15,8 +15,6 @@ from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class ArtistObject(CustomObject):
-    """https://developer.spotify.com/documentation/web-api/reference/#object-artistobject"""
-
     properties = PropertiesList(
         Property("external_urls", ExternalUrlObject),
         Property("followers", FollowersObject),

@@ -16,8 +16,6 @@ from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class AlbumObject(CustomObject):
-    """https://developer.spotify.com/documentation/web-api/reference/#object-albumbase"""
-
     properties = PropertiesList(
         Property("album_type", StringType),
         Property("artists", ArrayType(ArtistObject)),

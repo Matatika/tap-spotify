@@ -17,8 +17,6 @@ from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class TrackObject(CustomObject):
-    """https://developer.spotify.com/documentation/web-api/reference/#object-trackobject"""
-
     properties = PropertiesList(
         Property("album", AlbumObject),
         Property("artists", ArrayType(ArtistObject)),
