@@ -6,17 +6,26 @@ Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
 ## Installation
 
-- [ ] `Developer TODO:` Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
-
 ```bash
-pipx install tap-spotify
+# pip
+pip install git+https://github.com/Matatika/tap-spotify
+
+# pipx
+pipx install git+https://github.com/Matatika/tap-spotify
+
+# poetry
+poetry add git+https://github.com/Matatika/tap-spotify
 ```
 
 ## Configuration
 
 ### Accepted Config Options
 
-- [ ] `Developer TODO:` Provide a list of config options accepted by the tap.
+Name | Required | Default | Description
+--- | --- | --- | ---
+`client_id` | Yes |  | Your `tap-spotify` app client ID
+`client_secret` | Yes | | Your `tap-spotify` app client secret
+`refresh_token` | Yes | | Your `tap-spotify` app refresh token
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -27,7 +36,19 @@ tap-spotify --about
 
 ### Source Authentication and Authorization
 
-- [ ] `Developer TODO:` If your tap requires special access on the source system, or any special authentication requirements, provide those here.
+Before using `tap-spotify`, you will need to create an [app](https://developer.spotify.com/documentation/web-api/concepts/apps) from your [Spotify developer dashboard](https://developer.spotify.com/dashboard). We recommend restricting your use of this app to `tap-spotify` only. Provide an name, description and a redirect URI of `https://alecchen.dev/spotify-refresh-token` (explained below).
+
+#### Get a Refresh Token
+Use [this web app](https://alecchen.dev/spotify-refresh-token) made by [Alec Chen](https://alecchen.dev/) to get a refresh token with your Spotify app credentials:
+- Provide your app client ID and secret in the appropriate fields
+- Select the following required scopes: [`user-top-read`](https://developer.spotify.com/documentation/web-api/concepts/scopes#user-top-read)
+
+  If a required scope is not set, `tap-spotify` will encounter a `403 Forbidden` response from the Spotify Web API and fail. You must set all required scopes.
+
+  Some scopes are not required. Setting these will allow `tap-spotify` to read more specific and possibly sensitive resource data, so do this at your own risk.
+- Click 'Submit'
+- Follow the Spotify login flow
+- Copy the refresh token
 
 ## Usage
 
