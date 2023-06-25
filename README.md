@@ -39,13 +39,14 @@ tap-spotify --about
 Before using `tap-spotify`, you will need to create an [app](https://developer.spotify.com/documentation/web-api/concepts/apps) from your [Spotify developer dashboard](https://developer.spotify.com/dashboard). We recommend restricting your use of this app to `tap-spotify` only. Provide an name, description and a redirect URI of `https://alecchen.dev/spotify-refresh-token` (explained below).
 
 #### Get a Refresh Token
-Use [this web app](https://alecchen.dev/spotify-refresh-token?scope=user-top-read) made by [Alec Chen](https://alecchen.dev/) to get a refresh token with your Spotify app credentials:
+Use [this web app](https://alecchen.dev/spotify-refresh-token?scope=user-top-read&scope=user-library-read) made by [Alec Chen](https://alecchen.dev/) to get a refresh token with your Spotify app credentials:
 - Provide your app client ID and secret in the appropriate fields
 - Click 'Submit' and follow the Spotify login flow
 - Copy the refresh token
 
 THe following token scopes are required (and are pre-selected for you when following the above web app link):
 - [`user-top-read`](https://developer.spotify.com/documentation/web-api/concepts/scopes#user-top-read)
+- [`user-library-read`](https://developer.spotify.com/documentation/web-api/concepts/scopes#user-library-read)
 
 If a required scope is not set, `tap-spotify` will encounter a `403 Forbidden` response from the Spotify Web API and fail. You must set all required scopes.
 
