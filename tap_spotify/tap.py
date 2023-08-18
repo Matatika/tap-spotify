@@ -2,7 +2,7 @@
 
 
 from singer_sdk import Tap
-from singer_sdk import typing as th  # JSON schema typing helpers
+from singer_sdk import typing as th
 
 from tap_spotify import streams
 
