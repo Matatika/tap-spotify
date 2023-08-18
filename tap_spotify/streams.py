@@ -1,7 +1,6 @@
 """Stream type classes for tap-spotify."""
 
 from datetime import datetime
-from typing import Any, Dict, Optional
 
 from singer_sdk.streams.rest import RESTStream
 
@@ -17,7 +16,7 @@ class _RankStream(RESTStream):
 
     rank = 1
 
-    def post_process(self, row: dict, context: Optional[dict]) -> dict:
+    def post_process(self, row, context):
         """Apply rank integer to stream"""
         row = super().post_process(row, context)
         row["rank"] = self.rank
@@ -30,7 +29,7 @@ class _SyncedAtStream(RESTStream):
 
     synced_at = datetime.utcnow()
 
-    def post_process(self, row: dict, context: Optional[dict]) -> dict:
+    def post_process(self, row, context):
         """Apply synced at datetime to stream"""
         row = super().post_process(row, context)
         row["synced_at"] = self.synced_at
@@ -43,9 +42,7 @@ class _UserTopItemsStream(_RankStream, _SyncedAtStream, SpotifyStream):
     time_range = "medium_term"
     limit = 49
 
-    def get_url_params(
-        self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Dict[str, Any]:
+    def get_url_params(self, context, next_page_token):
         params = super().get_url_params(context, next_page_token)
         params["time_range"] = self.time_range
         params["limit"] = self.limit
