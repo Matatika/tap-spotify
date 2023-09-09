@@ -159,3 +159,14 @@ class GlobalViralTracksDailyStream(_PlaylistTracksStream):
     name = "global_viral_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbLiRSasKsNU9"
     primary_keys = ["rank", "synced_at"]
+
+
+class UserSavedTracksStream(_SyncedAtStream, SpotifyStream):
+    """Define user saved tracks stream."""
+
+    name = "user_saved_track_stream"
+    path = "/me/tracks"
+    primary_keys = ["id", "synced_at"]
+    limit = 50
+    schema = TrackObject.extend_with(SyncedAt).schema
+    records_jsonpath = "$.items[*].track"
