@@ -1,11 +1,11 @@
 """Schema definition for rank schema wrapper"""
 
-from singer_sdk.typing import PropertiesList, Property, IntegerType
+from singer_sdk import typing as th
 
 from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class Rank(CustomObject):
-    properties = PropertiesList(
-        Property("rank", IntegerType),
+    properties = th.PropertiesList(
+        th.Property("rank", th.IntegerType),
     )

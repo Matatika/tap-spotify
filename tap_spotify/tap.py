@@ -1,12 +1,10 @@
 """Spotify tap class."""
 
-from typing import List
 
-from singer_sdk import Tap, Stream
-from singer_sdk import typing as th  # JSON schema typing helpers
+from singer_sdk import Tap
+from singer_sdk import typing as th
 
 from tap_spotify import streams
-
 
 STREAM_TYPES = [
     streams.UserTopTracksShortTermStream,
@@ -18,6 +16,7 @@ STREAM_TYPES = [
     streams.GlobalTopTracksDailyStream,
     streams.GlobalTopTracksWeeklyStream,
     streams.GlobalViralTracksDailyStream,
+    streams.UserSavedTracksStream,
 ]
 
 
@@ -47,6 +46,5 @@ class TapSpotify(Tap):
         ),
     ).to_dict()
 
-    def discover_streams(self) -> List[Stream]:
-        """Return a list of discovered streams."""
+    def discover_streams(self):
         return [stream_class(tap=self) for stream_class in STREAM_TYPES]

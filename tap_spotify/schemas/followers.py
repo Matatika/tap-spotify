@@ -1,14 +1,12 @@
 """Schema definitions for followers objects"""
 
-from singer_sdk.typing import PropertiesList, Property, IntegerType, StringType
+from singer_sdk import typing as th
 
 from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class FollowersObject(CustomObject):
-    """https://developer.spotify.com/documentation/web-api/reference/#object-followersobject"""
-
-    properties = PropertiesList(
-        Property("href", StringType),
-        Property("total", IntegerType),
+    properties = th.PropertiesList(
+        th.Property("href", th.StringType),
+        th.Property("total", th.IntegerType),
     )

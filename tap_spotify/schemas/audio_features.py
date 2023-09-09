@@ -7,6 +7,7 @@ from singer_sdk.typing import (
     Property,
     StringType,
 )
+
 from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
