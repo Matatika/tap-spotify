@@ -1,6 +1,6 @@
 """REST client handling, including SpotifyStream base class."""
 
-from typing import Any, Dict, Optional
+from typing import Optional
 from urllib.parse import ParseResult, parse_qsl
 
 from memoization import cached
@@ -18,15 +18,12 @@ class SpotifyStream(RESTStream):
 
     @property
     @cached
-    def authenticator(self) -> SpotifyAuthenticator:
-        """Return a new authenticator object."""
+    def authenticator(self):
         return SpotifyAuthenticator.create_for_stream(self)
 
     def get_new_paginator(self):
         return BodyLinkPaginator()
 
-    def get_url_params(
-        self, context: Optional[dict], next_page_token: Optional[ParseResult]
-    ) -> Dict[str, Any]:
-        """Return a dictionary of values to be used in URL parameterization."""
-        return dict(parse_qsl(next_page_token.query)) if next_page_token else {}
+    def get_url_params(self, context, next_page_token: Optional[ParseResult]):
+        params = super().get_url_params(context, next_page_token)
+        return dict(parse_qsl(next_page_token.query)) if next_page_token else params

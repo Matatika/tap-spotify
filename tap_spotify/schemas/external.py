@@ -1,19 +1,19 @@
 """Schema definitions for external objects"""
 
-from singer_sdk.typing import PropertiesList, Property, StringType
+from singer_sdk import typing as th
 
 from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class ExternalIdObject(CustomObject):
-    properties = PropertiesList(
-        Property("ean", StringType),
-        Property("isrc", StringType),
-        Property("upc", StringType),
+    properties = th.PropertiesList(
+        th.Property("ean", th.StringType),
+        th.Property("isrc", th.StringType),
+        th.Property("upc", th.StringType),
     )
 
 
 class ExternalUrlObject(CustomObject):
-    properties = PropertiesList(
-        Property("spotify", StringType),
+    properties = th.PropertiesList(
+        th.Property("spotify", th.StringType),
     )
