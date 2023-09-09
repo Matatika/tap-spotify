@@ -36,12 +36,14 @@ class TapSpotify(Tap):
             "client_secret",
             th.StringType,
             required=True,
+            secret=True,
             description="App client secret",
         ),
         th.Property(
             "refresh_token",
             th.StringType,
             required=True,
+            secret=True,
             description="Refresh token",
         ),
     ).to_dict()
