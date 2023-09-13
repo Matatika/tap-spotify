@@ -44,13 +44,28 @@ Use [this web app](https://alecchen.dev/spotify-refresh-token?scope=user-top-rea
 - Click 'Submit' and follow the Spotify login flow
 - Copy the refresh token
 
-THe following token scopes are required (and are pre-selected for you when following the above web app link):
+Each stream requires certain token scopes. By default (all streams selected), the following token scopes are required:
 - [`user-top-read`](https://developer.spotify.com/documentation/web-api/concepts/scopes#user-top-read)
 - [`user-library-read`](https://developer.spotify.com/documentation/web-api/concepts/scopes#user-library-read)
 
-If a required scope is not set, `tap-spotify` will encounter a `403 Forbidden` response from the Spotify Web API and fail. You must set all required scopes.
+When specific streams are selected, the required token scopes may change.
 
-Some scopes are not required. Setting these will allow `tap-spotify` to read more specific and possibly sensitive resource data, so do this at your own risk.
+Stream | Required scope(s)
+--- | ---
+`user_top_tracks_st_stream` | `user-top-read`
+`user_top_tracks_mt_stream` | `user-top-read`
+`user_top_tracks_lt_stream` | `user-top-read`
+`user_top_artists_st_stream` | `user-top-read`
+`user_top_artists_mt_stream` | `user-top-read`
+`user_top_artists_lt_stream` | `user-top-read`
+`global_top_tracks_daily_stream` |
+`global_top_tracks_weekly_stream` |
+`global_viral_tracks_daily_stream` |
+`user_saved_tracks_stream` | `user-library-read`
+
+If a required scope is not set, `tap-spotify` will encounter a `403 Forbidden` response from the Spotify Web API and fail. You must set all required scopes for the selected streams.
+
+Any other scopes not listed here are **not required** by `tap-spotify`. Setting these will allow applications using the same Spotify app credentials to read more specific and possibly sensitive resource data, so do this at your own risk.
 
 ## Usage
 
