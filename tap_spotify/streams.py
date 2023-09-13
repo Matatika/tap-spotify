@@ -202,7 +202,7 @@ class GlobalViralTracksDailyStream(_PlaylistTracksStream):
 class UserSavedTracksStream(_SyncedAtStream, SpotifyStream):
     """Define user saved tracks stream."""
 
-    name = "user_saved_track_stream"
+    name = "user_saved_tracks_stream"
     path = "/me/tracks"
     primary_keys = ["id", "synced_at"]
     limit = 50
