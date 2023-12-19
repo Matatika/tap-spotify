@@ -29,20 +29,23 @@ class TapSpotify(Tap):
         th.Property(
             "client_id",
             th.StringType,
-            required=True,
             description="App client ID",
         ),
         th.Property(
             "client_secret",
             th.StringType,
-            required=True,
             secret=True,
             description="App client secret",
         ),
         th.Property(
             "refresh_token",
             th.StringType,
-            required=True,
+            secret=True,
+            description="Refresh token",
+        ),
+        th.Property(
+            "access_token",
+            th.StringType,
             secret=True,
             description="Refresh token",
         ),

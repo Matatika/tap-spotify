@@ -20,6 +20,8 @@ plugins:
       kind: password
     - name: refresh_token
       kind: password
+    - name: access_token
+      kind: password
   loaders:
   - name: target-jsonl
     variant: andyh1203

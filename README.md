@@ -21,11 +21,20 @@ poetry add git+https://github.com/Matatika/tap-spotify
 
 ### Accepted Config Options
 
-Name | Required | Default | Description
---- | --- | --- | ---
-`client_id` | Yes |  | Your `tap-spotify` app client ID
-`client_secret` | Yes | | Your `tap-spotify` app client secret
-`refresh_token` | Yes | | Your `tap-spotify` app refresh token
+Name | Description
+--- | ---
+`client_id` | Your `tap-spotify` app client ID
+`client_secret` | Your `tap-spotify` app client secret
+`refresh_token` | Your `tap-spotify` app refresh token
+`access_token` | Your `tap-spotify` app access token
+
+### Valid Configurations
+
+Option(s) | Description
+--- | ---
+`access_token` | Use supplied access token
+`client_id`<br>`client_secret`<br>`refresh_token` | Use OAuth credentials to generate access tokens internally
+`client_id`<br>`client_secret`<br>`refresh_token`<br>`access_token` | Use supplied access token and fallback to OAuth credentials if invalid or expired
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -38,11 +47,11 @@ tap-spotify --about
 
 Before using `tap-spotify`, you will need to create an [app](https://developer.spotify.com/documentation/web-api/concepts/apps) from your [Spotify developer dashboard](https://developer.spotify.com/dashboard). We recommend restricting your use of this app to `tap-spotify` only. Provide an name, description and a redirect URI of `https://alecchen.dev/spotify-refresh-token` (explained below).
 
-#### Get a Refresh Token
-Use [this web app](https://alecchen.dev/spotify-refresh-token?scope=user-top-read&scope=user-library-read) made by [Alec Chen](https://alecchen.dev/) to get a refresh token with your Spotify app credentials:
+#### Get an Access Token and/or Refresh Token
+Use [this web app](https://alecchen.dev/spotify-refresh-token?scope=user-top-read&scope=user-library-read) made by [Alec Chen](https://alecchen.dev/) to get an access token and/or refresh token with your Spotify app credentials:
 - Provide your app client ID and secret in the appropriate fields
 - Click 'Submit' and follow the Spotify login flow
-- Copy the refresh token
+- Copy the access token and/or refresh token
 
 Each stream requires certain token scopes. By default (all streams selected), the following token scopes are required:
 - [`user-top-read`](https://developer.spotify.com/documentation/web-api/concepts/scopes#user-top-read)
