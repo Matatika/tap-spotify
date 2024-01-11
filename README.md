@@ -36,13 +36,16 @@ tap-spotify --about
 
 ### Source Authentication and Authorization
 
-Before using `tap-spotify`, you will need to create an [app](https://developer.spotify.com/documentation/web-api/concepts/apps) from your [Spotify developer dashboard](https://developer.spotify.com/dashboard). We recommend restricting your use of this app to `tap-spotify` only. Provide an name, description and a redirect URI of `https://alecchen.dev/spotify-refresh-token` (explained below).
+Before using `tap-spotify`, you will need to create an [app](https://developer.spotify.com/documentation/web-api/concepts/apps) from your [Spotify developer dashboard](https://developer.spotify.com/dashboard). We recommend restricting your use of this app to `tap-spotify` only. Provide an name, description and a redirect URI of `https://matatika.github.io/spotify-refresh-token` (explained below).
 
 #### Get a Refresh Token
-Use [this web app](https://alecchen.dev/spotify-refresh-token?scope=user-top-read&scope=user-library-read) made by [Alec Chen](https://alecchen.dev/) to get a refresh token with your Spotify app credentials:
+Use [this web app](https://matatika.github.io/spotify-refresh-token/?scope=user-top-read&scope=user-library-read) to get a refresh token with your Spotify app credentials:
+
 - Provide your app client ID and secret in the appropriate fields
 - Click 'Submit' and follow the Spotify login flow
 - Copy the refresh token
+
+> Credit to [Alec Chen](https://alecchen.dev/) for the original project
 
 Each stream requires certain token scopes. By default (all streams selected), the following token scopes are required:
 - [`user-top-read`](https://developer.spotify.com/documentation/web-api/concepts/scopes#user-top-read)
