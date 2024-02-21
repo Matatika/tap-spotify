@@ -78,7 +78,7 @@ class _UserTopItemsStream(_RankStream, _SyncedAtStream, SpotifyStream):
     """Define user top items stream."""
 
     time_range = "medium_term"
-    limit = 49
+    limit = 50
 
     def get_url_params(self, context, next_page_token):
         params = super().get_url_params(context, next_page_token)
