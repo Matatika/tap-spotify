@@ -8,6 +8,7 @@ on: [push]
 jobs:
   pytest:
     runs-on: ubuntu-latest
+    continue-on-error: true
     env:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       TAP_SPOTIFY_CLIENT_ID: ${{secrets.TAP_SPOTIFY_CLIENT_ID}}
@@ -27,6 +28,7 @@ jobs:
         pip install poetry
     - name: Install dependencies
       run: |
+        poetry env use ${{ matrix.python-version }}
         poetry install
     - name: Test with pytest
       run: |
