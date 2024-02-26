@@ -69,9 +69,17 @@ class _AudioFeaturesStream(SpotifyStream):
     path = "/audio-features"
     records_jsonpath = "$.audio_features[*]"
     schema = AudioFeaturesObject.schema
+    max_tracks = 100
 
     def __init__(self, tracks_stream: _TracksStream, track_records: Iterable[dict]):
         super().__init__(tracks_stream._tap)
+
+        total_tracks = len(track_records)
+
+        if total_tracks > self.max_tracks:
+            msg = f"Cannot get audio features for more than {self.max_tracks} tracks at a time: {total_tracks} requested"
+            raise ValueError(msg)
+
         self._track_records = track_records
 
     def get_url_params(self, *args, **kwargs):
