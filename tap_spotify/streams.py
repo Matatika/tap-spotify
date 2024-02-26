@@ -42,20 +42,24 @@ class _SyncedAtStream(RESTStream):
 class _TracksStream(SpotifyStream):
     """Define a track stream."""
 
+    chunk_size = 100
+
     def get_records(self, context):
-        # get all track records
-        track_records = list(super().request_records(context))
+        # chunk all track records
+        track_records = super().request_records(context)
+        track_records_chunks = self.chunk_records(track_records)
 
-        # get all audio features records
-        # instantiate audio features stream inline and request records
-        audio_features_stream = _AudioFeaturesStream(self, track_records)
-        audio_features_records = audio_features_stream.request_records(context)
+        for track_records_chunk in track_records_chunks:
+            # get audio features records
+            # instantiate audio features stream inline and request records
+            audio_features_stream = _AudioFeaturesStream(self, track_records_chunk)
+            audio_features_records = audio_features_stream.request_records(context)
 
-        # merge track and audio features records
-        for track, audio_features in zip(track_records, audio_features_records):
-            # account for tracks with `null` audio features
-            row = {**(audio_features or {}), **track}
-            yield self.post_process(row, context)
+            # merge chunked track and audio features records
+            for track, audio_features in zip(track_records_chunk, audio_features_records):
+                # account for tracks with `null` audio features
+                row = {**(audio_features or {}), **track}
+                yield self.post_process(row, context)
 
 
 class _AudioFeaturesStream(SpotifyStream):
