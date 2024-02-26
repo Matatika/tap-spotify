@@ -5,7 +5,6 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Iterable
 
-from requests.models import Response as Response
 from singer_sdk.streams.rest import RESTStream
 
 from tap_spotify.client import SpotifyStream
