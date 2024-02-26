@@ -1,6 +1,6 @@
 """REST client handling, including SpotifyStream base class."""
 
-from typing import Optional
+from typing import Iterable, Optional
 from urllib.parse import ParseResult, parse_qsl
 
 from memoization import cached
@@ -15,6 +15,7 @@ class SpotifyStream(RESTStream):
 
     url_base = "https://api.spotify.com/v1"
     records_jsonpath = "$.items[*]"
+    chunk_size = None
 
     @property
     @cached
@@ -27,3 +28,19 @@ class SpotifyStream(RESTStream):
     def get_url_params(self, context, next_page_token: Optional[ParseResult]):
         params = super().get_url_params(context, next_page_token)
         return dict(parse_qsl(next_page_token.query)) if next_page_token else params
+
+    def chunk_records(self, records: Iterable[dict]):
+        if not self.chunk_size:
+            return [records]
+
+        chunk = []
+
+        for i, record in enumerate(records):
+            if i and not i % self.chunk_size:
+                yield list(chunk)
+                chunk.clear()
+
+            chunk.append(record)
+
+        if chunk:
+            yield list(chunk)

@@ -1,9 +1,10 @@
 """Stream type classes for tap-spotify."""
 
+from __future__ import annotations
+
 from datetime import datetime
 from typing import Iterable
 
-from requests.models import Response as Response
 from singer_sdk.streams.rest import RESTStream
 
 from tap_spotify.client import SpotifyStream
@@ -39,25 +40,6 @@ class _SyncedAtStream(RESTStream):
         return row
 
 
-class _TracksStream(SpotifyStream):
-    """Define a track stream."""
-
-    def get_records(self, context):
-        # get all track records
-        track_records = list(super().request_records(context))
-
-        # get all audio features records
-        # instantiate audio features stream inline and request records
-        audio_features_stream = _AudioFeaturesStream(self, track_records)
-        audio_features_records = audio_features_stream.request_records(context)
-
-        # merge track and audio features records
-        for track, audio_features in zip(track_records, audio_features_records):
-            # account for tracks with `null` audio features
-            row = {**(audio_features or {}), **track}
-            yield self.post_process(row, context)
-
-
 class _AudioFeaturesStream(SpotifyStream):
     """Define an audio features stream."""
 
@@ -65,13 +47,47 @@ class _AudioFeaturesStream(SpotifyStream):
     path = "/audio-features"
     records_jsonpath = "$.audio_features[*]"
     schema = AudioFeaturesObject.schema
+    max_tracks = 100
 
     def __init__(self, tracks_stream: _TracksStream, track_records: Iterable[dict]):
         super().__init__(tracks_stream._tap)
+
+        total_tracks = len(track_records)
+
+        if total_tracks > self.max_tracks:
+            msg = f"Cannot get audio features for more than {self.max_tracks} tracks at a time: {total_tracks} requested"
+            raise ValueError(msg)
+
         self._track_records = track_records
 
     def get_url_params(self, *args, **kwargs):
         return {"ids": ",".join([track["id"] for track in self._track_records])}
+
+
+class _TracksStream(SpotifyStream):
+    """Define a track stream."""
+
+    chunk_size = _AudioFeaturesStream.max_tracks
+
+    def get_records(self, context):
+        # chunk all track records
+        track_records = super().request_records(context)
+        track_records_chunks = self.chunk_records(track_records)
+
+        for track_records_chunk in track_records_chunks:
+            # get audio features records
+            # instantiate audio features stream inline and request records
+            audio_features_stream = _AudioFeaturesStream(self, track_records_chunk)
+            audio_features_records = audio_features_stream.request_records(context)
+
+            # merge chunked track and audio features records
+            for track, audio_features in zip(
+                track_records_chunk,
+                audio_features_records,
+            ):
+                # account for tracks with `null` audio features
+                row = {**(audio_features or {}), **track}
+                yield self.post_process(row, context)
 
 
 class _UserTopItemsStream(_RankStream, _SyncedAtStream, SpotifyStream):
