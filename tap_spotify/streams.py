@@ -3,6 +3,7 @@
 from datetime import datetime
 from typing import Iterable
 
+from requests.models import Response as Response
 from singer_sdk.streams.rest import RESTStream
 
 from tap_spotify.client import SpotifyStream
@@ -52,7 +53,6 @@ class _TracksStream(SpotifyStream):
 
         # merge track and audio features records
         for track, audio_features in zip(track_records, audio_features_records):
-
             # account for tracks with `null` audio features
             row = {**(audio_features or {}), **track}
             yield self.post_process(row, context)
@@ -173,6 +173,11 @@ class _PlaylistTracksStream(_RankStream, _SyncedAtStream, _TracksStream):
     records_jsonpath = "$.tracks.items[*].track"
     schema = TrackObject.extend_with(Rank, SyncedAt, AudioFeaturesObject).schema
     primary_keys = ["rank", "synced_at"]
+
+    def parse_response(self, response):
+        for track in super().parse_response(response):
+            if track:
+                yield track
 
 
 class GlobalTopTracksDailyStream(_PlaylistTracksStream):
