@@ -3,7 +3,8 @@
 from typing import Iterable, Optional
 from urllib.parse import ParseResult, parse_qsl
 
-from memoization import cached
+from functools import cached_property
+
 from singer_sdk.streams import RESTStream
 
 from tap_spotify.auth import SpotifyAuthenticator
@@ -17,8 +18,7 @@ class SpotifyStream(RESTStream):
     records_jsonpath = "$.items[*]"
     chunk_size = None
 
-    @property
-    @cached
+    @cached_property
     def authenticator(self):
         return SpotifyAuthenticator.create_for_stream(self)
 
