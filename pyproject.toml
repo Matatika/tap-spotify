@@ -2,44 +2,68 @@
 name = "tap-spotify"
 version = "0.5.0"
 description = "`tap-spotify` is a Singer tap for Spotify, built with the Meltano SDK for Singer Taps."
-authors = ["Reuben Frankel"]
+readme = "README.md"
+authors = ["Reuben Frankel <rfrankel@matatika.com>"]
 keywords = [
     "ELT",
     "Spotify",
 ]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
 license = "Apache 2.0"
+packages = [
+    { include = "tap_spotify" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-requests = "^2.31.0"
+importlib-resources = { version = "==6.1.*", python = "<3.9" }
 singer-sdk = "^0.36.0"
+fs-s3fs = { version = "^1.1.1", optional = true }
+requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.1.0"
-tox = "^4.13.0"
-flake8 = "^5.0.4"
-black = "^24.2.0"
-pydocstyle = "^6.1.1"
-mypy = "^1.8"
-types-requests = "^2.25.8"
-isort = {extras = ["colors"], version = "^5.13.2"}
-pre-commit = "^3.5.0"
-autoflake = "^1.7"
+singer-sdk = { version="^0.36.0", extras = ["testing"] }
 
-[tool.black]
-include = "tap_spotify"
-extend-exclude = "tests"
-color = "true"
+[tool.poetry.extras]
+s3 = ["fs-s3fs"]
 
-[tool.isort]
-profile = "black"
-multi_line_output = 3 # Vertical Hanging Indent
-src_paths = "tap_spotify"
-extend_skip = "tests"
-color_output = "true"
+[tool.mypy]
+python_version = "3.11"
+warn_unused_configs = true
+
+[tool.ruff]
+src = ["tap_spotify"]
+target-version = "py38"
+
+[tool.ruff.lint]
+ignore = [
+    "ANN101",  # missing-type-self
+    "ANN102",  # missing-type-cls
+    "COM812",  # missing-trailing-comma
+    "ISC001",  # single-line-implicit-string-concatenation
+]
+select = ["ALL"]
+
+[tool.ruff.flake8-annotations]
+allow-star-arg-any = true
+
+[tool.ruff.isort]
+known-first-party = ["tap_spotify"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core==1.8.1"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
