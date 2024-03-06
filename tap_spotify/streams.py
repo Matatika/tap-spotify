@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import Iterable
+from typing import Collection
 
 from singer_sdk.streams.rest import RESTStream
 from typing_extensions import override
@@ -49,7 +49,7 @@ class _AudioFeaturesStream(SpotifyStream):
     def __init__(
         self,
         tracks_stream: _TracksStream,
-        track_records: Iterable[dict],
+        track_records: Collection[dict],
     ) -> None:
         super().__init__(tracks_stream._tap)  # noqa: SLF001
 

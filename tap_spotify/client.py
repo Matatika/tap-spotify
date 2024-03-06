@@ -1,5 +1,7 @@
 """REST client handling, including SpotifyStream base class."""
 
+from __future__ import annotations
+
 from functools import cached_property
 from typing import Iterable
 from urllib.parse import parse_qsl
@@ -16,7 +18,7 @@ class SpotifyStream(RESTStream):
 
     url_base = "https://api.spotify.com/v1"
     records_jsonpath = "$.items[*]"
-    chunk_size = None
+    chunk_size: int | None
 
     @cached_property
     @override
@@ -36,7 +38,7 @@ class SpotifyStream(RESTStream):
         if not self.chunk_size:
             return [records]
 
-        chunk = []
+        chunk: list[dict] = []
 
         for i, record in enumerate(records):
             if i and not i % self.chunk_size:
