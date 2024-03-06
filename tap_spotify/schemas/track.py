@@ -1,4 +1,4 @@
-"""Schema definitions for track objects"""
+"""Schema definitions for track objects."""
 
 from singer_sdk import typing as th
 
@@ -23,7 +23,7 @@ class TrackObject(CustomObject):
         th.Property("id", th.StringType),
         th.Property("is_local", th.BooleanType),
         th.Property("is_playable", th.BooleanType),
-        # th.Property("linked_from", TrackObject),
+        # th.Property("linked_from", TrackObject),  # noqa: ERA001
         th.Property("name", th.StringType),
         th.Property("popularity", th.IntegerType),
         th.Property("preview_url", th.StringType),

@@ -1,4 +1,4 @@
-"""Schema definitions for restriction objects"""
+"""Schema definitions for restriction objects."""
 
 from singer_sdk import typing as th
 

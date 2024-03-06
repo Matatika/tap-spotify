@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from datetime import datetime
-from typing import Iterable
+from datetime import datetime, timezone
+from typing import Collection
 
 from singer_sdk.streams.rest import RESTStream
+from typing_extensions import override
 
 from tap_spotify.client import SpotifyStream
 from tap_spotify.schemas.artist import ArtistObject
@@ -16,12 +17,10 @@ from tap_spotify.schemas.utils.synced_at import SyncedAt
 
 
 class _RankStream(RESTStream):
-    """Define a rank stream."""
-
     rank = 1
 
+    @override
     def post_process(self, row, context):
-        """Apply rank integer to stream"""
         row = super().post_process(row, context)
         row["rank"] = self.rank
         self.rank += 1
@@ -29,12 +28,10 @@ class _RankStream(RESTStream):
 
 
 class _SyncedAtStream(RESTStream):
-    """Define a synced at stream."""
+    synced_at = datetime.now(tz=timezone.utc)
 
-    synced_at = datetime.utcnow()
-
+    @override
     def post_process(self, row, context):
-        """Apply synced at datetime to stream"""
         row = super().post_process(row, context)
         row["synced_at"] = self.synced_at
         return row
@@ -49,18 +46,24 @@ class _AudioFeaturesStream(SpotifyStream):
     schema = AudioFeaturesObject.schema
     max_tracks = 100
 
-    def __init__(self, tracks_stream: _TracksStream, track_records: Iterable[dict]):
-        super().__init__(tracks_stream._tap)
+    def __init__(
+        self,
+        tracks_stream: _TracksStream,
+        track_records: Collection[dict],
+    ) -> None:
+        super().__init__(tracks_stream._tap)  # noqa: SLF001
 
-        total_tracks = len(track_records)
-
-        if total_tracks > self.max_tracks:
-            msg = f"Cannot get audio features for more than {self.max_tracks} tracks at a time: {total_tracks} requested"
+        if total_tracks := len(track_records) > self.max_tracks:
+            msg = (
+                f"Cannot get audio features for more than {self.max_tracks} tracks at a"
+                f" time: {total_tracks} requested"
+            )
             raise ValueError(msg)
 
         self._track_records = track_records
 
-    def get_url_params(self, *args, **kwargs):
+    @override
+    def get_url_params(self, context, next_page_token):
         return {"ids": ",".join([track["id"] for track in self._track_records])}
 
 
@@ -136,14 +139,14 @@ class UserTopTracksShortTermStream(
     """Define user top tracks short-term stream."""
 
     name = "user_top_tracks_st_stream"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class UserTopTracksMediumTermStream(_UserTopTracksStream):
     """Define user top tracks medium-term stream."""
 
     name = "user_top_tracks_mt_stream"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class UserTopTracksLongTermStream(
@@ -153,7 +156,7 @@ class UserTopTracksLongTermStream(
     """Define user top tracks long-term stream."""
 
     name = "user_top_tracks_lt_stream"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class UserTopArtistsShortTermStream(
@@ -163,14 +166,14 @@ class UserTopArtistsShortTermStream(
     """Define user top artists short-term stream."""
 
     name = "user_top_artists_st_stream"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class UserTopArtistsMediumTermStream(_UserTopArtistsStream):
     """Define user top artists medium-term stream."""
 
     name = "user_top_artists_mt_stream"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class UserTopArtistsLongTermStream(
@@ -180,7 +183,7 @@ class UserTopArtistsLongTermStream(
     """Define user top artists long-term stream."""
 
     name = "user_top_artists_lt_stream"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class _PlaylistTracksStream(_RankStream, _SyncedAtStream, _TracksStream):
@@ -188,7 +191,7 @@ class _PlaylistTracksStream(_RankStream, _SyncedAtStream, _TracksStream):
 
     records_jsonpath = "$.tracks.items[*].track"
     schema = TrackObject.extend_with(Rank, SyncedAt, AudioFeaturesObject).schema
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
     def parse_response(self, response):
         for track in super().parse_response(response):
@@ -201,7 +204,7 @@ class GlobalTopTracksDailyStream(_PlaylistTracksStream):
 
     name = "global_top_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbMDoHDwVN2tF"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class GlobalTopTracksWeeklyStream(_PlaylistTracksStream):
@@ -209,7 +212,7 @@ class GlobalTopTracksWeeklyStream(_PlaylistTracksStream):
 
     name = "global_top_tracks_weekly_stream"
     path = "/playlists/37i9dQZEVXbNG2KDcFcKOF"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class GlobalViralTracksDailyStream(_PlaylistTracksStream):
@@ -217,7 +220,7 @@ class GlobalViralTracksDailyStream(_PlaylistTracksStream):
 
     name = "global_viral_tracks_daily_stream"
     path = "/playlists/37i9dQZEVXbLiRSasKsNU9"
-    primary_keys = ["rank", "synced_at"]
+    primary_keys = ("rank", "synced_at")
 
 
 class UserSavedTracksStream(_SyncedAtStream, SpotifyStream):
@@ -225,7 +228,7 @@ class UserSavedTracksStream(_SyncedAtStream, SpotifyStream):
 
     name = "user_saved_tracks_stream"
     path = "/me/tracks"
-    primary_keys = ["id", "synced_at"]
+    primary_keys = ("id", "synced_at")
     limit = 50
     schema = TrackObject.extend_with(SyncedAt).schema
     records_jsonpath = "$.items[*].track"

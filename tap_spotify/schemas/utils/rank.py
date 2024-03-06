@@ -1,4 +1,4 @@
-"""Schema definition for rank schema wrapper"""
+"""Schema definition for rank schema wrapper."""
 
 from singer_sdk import typing as th
 
