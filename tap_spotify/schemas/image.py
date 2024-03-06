@@ -1,4 +1,4 @@
-"""Schema definitions for image objects"""
+"""Schema definitions for image objects."""
 
 from singer_sdk import typing as th
 

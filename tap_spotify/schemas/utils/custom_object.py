@@ -1,23 +1,31 @@
-"""Base custom object defintion"""
+"""Base custom object defintion."""
+
+from __future__ import annotations
 
 from singer_sdk import typing as th
-from singer_sdk.helpers._classproperty import classproperty
+from typing_extensions import Self, override
+
+# ruff: noqa: N805
 
 
 class CustomObject(th.JSONTypeHelper):
+    """Custom object."""
+
     properties: th.PropertiesList
 
-    @classproperty
+    @th.DefaultInstanceProperty
+    @override
     def type_dict(cls):
         return cls.properties.to_dict()
 
-    @classproperty
-    def schema(cls):
+    @th.DefaultInstanceProperty
+    def schema(cls):  # noqa: D102
         return cls.type_dict
 
     @classmethod
-    def extend_with(cls, *extras: "CustomObject"):
+    def extend_with(cls, *extras: type[Self]) -> type[Self]:
+        """Extend a custom object schema with other custom object types."""
         for e in extras:
-            for _, p in e.properties.items():
+            for _, p in e.properties.items():  # noqa: PERF102
                 cls.properties.append(p)
         return cls

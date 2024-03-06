@@ -1,4 +1,4 @@
-"""Schema definitions for artist objects"""
+"""Schema definitions for artist objects."""
 
 from singer_sdk import typing as th
 

@@ -1,4 +1,4 @@
-"""Schema definitions for audio features objects"""
+"""Schema definitions for audio features objects."""
 
 from singer_sdk.typing import (
     IntegerType,
@@ -12,12 +12,6 @@ from tap_spotify.schemas.utils.custom_object import CustomObject
 
 
 class AudioFeaturesObject(CustomObject):
-    """
-    https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
-
-    https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features
-    """
-
     properties = PropertiesList(
         Property("acousticness", NumberType),
         Property("analysis_url", StringType),
