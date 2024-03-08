@@ -10,6 +10,16 @@ Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 [![Code style](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fastral-sh%2Fruff%2Fmain%2Fassets%2Fbadge%2Fformat.json)](https://docs.astral.sh/ruff/)
 [![Test tap-spotify](https://github.com/Matatika/tap-spotify/actions/workflows/test.yml/badge.svg)](https://github.com/Matatika/tap-spotify/actions/workflows/test.yml)
 
+## Overview
+
+`tap-spotify` extracts raw data from the [Spotify Web API](https://developer.spotify.com/documentation/web-api) for the following resources:
+- [User's top tracks](https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks)
+- [User's top artists](https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks)
+- [User's saved tracks](https://developer.spotify.com/documentation/web-api/reference/get-users-saved-tracks)
+- [Global top 50 tracks (daily)](https://open.spotify.com/playlist/37i9dQZEVXbMDoHDwVN2tF)
+- [Global top 50 tracks (weekly)](https://open.spotify.com/playlist/37i9dQZEVXbNG2KDcFcKOF)
+- [Viral top 50 tracks(daily)](https://open.spotify.com/playlist/37i9dQZEVXbLiRSasKsNU9)
+
 ## Installation
 
 ```bash
