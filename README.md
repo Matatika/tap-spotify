@@ -18,7 +18,7 @@ Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 - [User's saved tracks](https://developer.spotify.com/documentation/web-api/reference/get-users-saved-tracks)
 - [Global top 50 tracks (daily)](https://open.spotify.com/playlist/37i9dQZEVXbMDoHDwVN2tF)
 - [Global top 50 tracks (weekly)](https://open.spotify.com/playlist/37i9dQZEVXbNG2KDcFcKOF)
-- [Viral top 50 tracks(daily)](https://open.spotify.com/playlist/37i9dQZEVXbLiRSasKsNU9)
+- [Viral top 50 tracks (daily)](https://open.spotify.com/playlist/37i9dQZEVXbLiRSasKsNU9)
 
 ## Installation
 
@@ -109,18 +109,8 @@ make init
 
 ### Lint your Code
 
-Identify lint issues by running:
-
 ```bash
 make lint
-```
-
-> If `make init` has been run, this command will execute automatically before a commit
-
-You can also fix lint issues automatically with:
-
-```bash
-make lint-fix
 ```
 
 ### Create and Run Tests
