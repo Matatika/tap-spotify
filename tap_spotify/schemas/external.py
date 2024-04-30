@@ -2,18 +2,12 @@
 
 from singer_sdk import typing as th
 
-from tap_spotify.schemas.utils.custom_object import CustomObject
+ExternalIdObject = th.PropertiesList(
+    th.Property("ean", th.StringType),
+    th.Property("isrc", th.StringType),
+    th.Property("upc", th.StringType),
+)
 
-
-class ExternalIdObject(CustomObject):
-    properties = th.PropertiesList(
-        th.Property("ean", th.StringType),
-        th.Property("isrc", th.StringType),
-        th.Property("upc", th.StringType),
-    )
-
-
-class ExternalUrlObject(CustomObject):
-    properties = th.PropertiesList(
-        th.Property("spotify", th.StringType),
-    )
+ExternalUrlObject = th.PropertiesList(
+    th.Property("spotify", th.StringType),
+)
