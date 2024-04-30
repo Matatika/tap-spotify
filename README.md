@@ -5,7 +5,7 @@
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
 [![Python version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FMatatika%2Ftap-spotify%2Fmaster%2Fpyproject.toml&query=tool.poetry.dependencies.python&label=python)](https://docs.python.org/3/)
-[![Singer SDK version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FMatatika%2Ftap-spotify%2Fmaster%2Fpyproject.toml&query=tool.poetry.dependencies%5B%22singer-sdk%22%5D&label=singer-sdk)](https://sdk.meltano.com/en/latest/)
+[![Singer SDK version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FMatatika%2Ftap-spotify%2Fmaster%2Fpoetry.lock&query=package%5B%3F(%40.name%3D%3D'singer-sdk')%5D.version&label=singer-sdk)](https://sdk.meltano.com/en/latest/)
 [![License](https://img.shields.io/github/license/Matatika/tap-spotify)](https://github.com/Matatika/tap-spotify/blob/main/LICENSE)
 [![Code style](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fastral-sh%2Fruff%2Fmain%2Fassets%2Fbadge%2Fformat.json)](https://docs.astral.sh/ruff/)
 [![Test tap-spotify](https://github.com/Matatika/tap-spotify/actions/workflows/test.yml/badge.svg)](https://github.com/Matatika/tap-spotify/actions/workflows/test.yml)
