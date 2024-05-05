@@ -56,11 +56,6 @@ ignore = [
 ]
 select = ["ALL"]
 
-[tool.ruff.lint.per-file-ignores]
-"tap_spotify/schemas/**/*" = [
-    "D101",   # undocumented-public-class
-]
-
 [tool.ruff.flake8-annotations]
 allow-star-arg-any = true
 

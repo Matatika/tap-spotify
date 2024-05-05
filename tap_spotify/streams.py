@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Collection
 
+from singer_sdk import typing as th
 from singer_sdk.streams.rest import RESTStream
 from typing_extensions import override
 
@@ -43,7 +44,7 @@ class _AudioFeaturesStream(SpotifyStream):
     name = "_audio_features_stream"
     path = "/audio-features"
     records_jsonpath = "$.audio_features[*]"
-    schema = AudioFeaturesObject.schema
+    schema = AudioFeaturesObject.to_dict()
     max_tracks = 100
 
     def __init__(
@@ -122,14 +123,19 @@ class _UserTopTracksStream(_TracksStream, _UserTopItemsStream):
     """Define user top tracks stream."""
 
     path = "/me/top/tracks"
-    schema = TrackObject.extend_with(Rank, SyncedAt, AudioFeaturesObject).schema
+    schema = th.PropertiesList(
+        *TrackObject,
+        *AudioFeaturesObject,
+        *Rank,
+        *SyncedAt,
+    ).to_dict()
 
 
 class _UserTopArtistsStream(_UserTopItemsStream):
     """Define user top artists stream."""
 
     path = "/me/top/artists"
-    schema = ArtistObject.extend_with(Rank, SyncedAt).schema
+    schema = th.PropertiesList(*ArtistObject, *Rank, *SyncedAt).to_dict()
 
 
 class UserTopTracksShortTermStream(
@@ -190,7 +196,12 @@ class _PlaylistTracksStream(_RankStream, _SyncedAtStream, _TracksStream):
     """Define playlist tracks stream."""
 
     records_jsonpath = "$.tracks.items[*].track"
-    schema = TrackObject.extend_with(Rank, SyncedAt, AudioFeaturesObject).schema
+    schema = th.PropertiesList(
+        *TrackObject,
+        *AudioFeaturesObject,
+        *Rank,
+        *SyncedAt,
+    ).to_dict()
     primary_keys = ("rank", "synced_at")
 
     def parse_response(self, response):
@@ -230,5 +241,5 @@ class UserSavedTracksStream(_SyncedAtStream, SpotifyStream):
     path = "/me/tracks"
     primary_keys = ("id", "synced_at")
     limit = 50
-    schema = TrackObject.extend_with(SyncedAt).schema
+    schema = th.PropertiesList(*TrackObject, *SyncedAt).to_dict()
     records_jsonpath = "$.items[*].track"
