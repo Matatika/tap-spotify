@@ -13,12 +13,12 @@ TestTapSpotify = get_tap_test_class(
     config=SAMPLE_CONFIG,
     suite_config=SuiteConfig(
         ignore_no_records_for_streams=[
-            streams.UserTopTracksShortTermStream.__name__,
-            streams.UserTopTracksMediumTermStream.__name__,
-            streams.UserTopTracksLongTermStream.__name__,
-            streams.UserTopArtistsShortTermStream.__name__,
-            streams.UserTopArtistsMediumTermStream.__name__,
-            streams.UserTopArtistsLongTermStream.__name__,
+            streams.UserTopTracksShortTermStream.name,
+            streams.UserTopTracksMediumTermStream.name,
+            streams.UserTopTracksLongTermStream.name,
+            streams.UserTopArtistsShortTermStream.name,
+            streams.UserTopArtistsMediumTermStream.name,
+            streams.UserTopArtistsLongTermStream.name,
         ]
     ),
 )
