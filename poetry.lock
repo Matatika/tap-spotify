@@ -617,20 +617,6 @@ tomli = {version = ">=1", markers = "python_version < \"3.11\""}
 dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
-name = "pytest-durations"
-version = "1.2.0"
-description = "Pytest plugin reporting fixtures and test functions execution time."
-optional = false
-python-versions = ">=3.6.2"
-files = [
-    {file = "pytest-durations-1.2.0.tar.gz", hash = "sha256:75793f7c2c393a947de4a92cc205e8dcb3d7fcde492628926cca97eb8e87077d"},
-    {file = "pytest_durations-1.2.0-py3-none-any.whl", hash = "sha256:210c649d989fdf8e864b7f614966ca2c8be5b58a5224d60089a43618c146d7fb"},
-]
-
-[package.dependencies]
-pytest = ">=4.6"
-
-[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -1014,13 +1000,13 @@ files = [
 
 [[package]]
 name = "singer-sdk"
-version = "0.39.1"
+version = "0.40.0"
 description = "A framework for building Singer taps"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "singer_sdk-0.39.1-py3-none-any.whl", hash = "sha256:0c66709678d36f584db313f19c64c7d3b443c6879e5e476b2934918581fb213e"},
-    {file = "singer_sdk-0.39.1.tar.gz", hash = "sha256:1616ac22c6917ddf2267a53e8802c10247a5e742bfb284e9dc9632ef9dc50ca4"},
+    {file = "singer_sdk-0.40.0-py3-none-any.whl", hash = "sha256:eb54a1de031a8888adb5ba2d1236161e95b4f87522444c943229a122f4d6b1ee"},
+    {file = "singer_sdk-0.40.0.tar.gz", hash = "sha256:f9360cbfac187cf4f14338b181313cab5726c8d1314c5719f2e8212c375ca3cf"},
 ]
 
 [package.dependencies]
@@ -1036,7 +1022,6 @@ jsonpath-ng = ">=1.5.3"
 jsonschema = ">=4.16.0"
 packaging = ">=23.1"
 pytest = {version = ">=7.2.1", optional = true, markers = "extra == \"docs\" or extra == \"testing\""}
-pytest-durations = {version = ">=1.2.0", optional = true, markers = "extra == \"testing\""}
 python-dotenv = ">=0.20"
 PyYAML = ">=6.0"
 referencing = ">=0.30.0"
@@ -1049,11 +1034,11 @@ urllib3 = ">=1.26,<2"
 
 [package.extras]
 docs = ["furo (>=2024.5.6)", "myst-parser (>=3)", "pytest (>=7.2.1)", "sphinx (>=7)", "sphinx-copybutton (>=0.5.2)", "sphinx-inline-tabs (>=2023.4.21)", "sphinx-notfound-page (>=1.0.0)", "sphinx-reredirects (>=0.1.5)"]
-faker = ["faker (>=22.5,<27.0)"]
+faker = ["faker (>=22.5)"]
 jwt = ["PyJWT (>=2.4,<3.0)", "cryptography (>=3.4.6)"]
-parquet = ["numpy (>=1.22)", "numpy (>=1.22,<1.25)", "pyarrow (>=13)"]
+parquet = ["numpy (>=1.22)", "numpy (>=1.22,<1.25)", "numpy (>=1.22,<2.1)", "pyarrow (>=13)"]
 s3 = ["fs-s3fs (>=1.1.1)"]
-testing = ["pytest (>=7.2.1)", "pytest-durations (>=1.2.0)"]
+testing = ["pytest (>=7.2.1)"]
 
 [[package]]
 name = "six"
@@ -1211,4 +1196,4 @@ s3 = ["fs-s3fs"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "0263d85068967d72d2150168419ea97e04ab4238e771104d4f9936a96e1f6907"
+content-hash = "79a490ffc2102737e21a842a29d7c539dcbf2e213c0abab9ab8b9b4cda7a454f"
