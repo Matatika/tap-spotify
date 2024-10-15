@@ -39,4 +39,4 @@ jobs:
         poetry install
     - name: Test with pytest
       run: |
-        poetry run pytest | sed -E 's/.*(UserWarning)/::warning title=\1::\0/'
+        poetry run pytest | sed -E 's/.*(UserWarning)/::warning title="${{ github.job }} (${{ matrix.python-version }}): \1"::\0/'
