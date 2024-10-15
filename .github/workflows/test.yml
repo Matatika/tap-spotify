@@ -39,4 +39,33 @@ jobs:
         poetry install
     - name: Test with pytest
       run: |
-        poetry run pytest | sed -E 's/.*(UserWarning)/::warning title="${{ github.job }} (${{ matrix.python-version }}): \1"::\0/'
+        __generate_annotations () {
+          level=$1
+          pattern=$2
+          title=${3:-'\1'}
+          message=${4:-'\0'}
+
+          test -z "$level" \
+            && echo 'Error: level is required' \
+            && exit 1
+
+          test "$level" != debug \
+            && test "$level" != notice \
+            && test "$level" != warning \
+            && test "$level" != error \
+            && echo 'Error: level must be one of [ debug | notice | warning | error ]' \
+            && exit 1
+
+          test -z "$pattern" \
+            && echo 'Error: pattern is required' \
+            && exit 1
+
+          sed -E "s/.*($pattern)/::$level title=${{ github.job }} (${{ matrix.python-version }}): $title::$message/"
+        }
+
+        debug () { __generate_annotations $FUNCNAME "$@"; }
+        notice () { __generate_annotations $FUNCNAME "$@"; }
+        warning () { __generate_annotations $FUNCNAME "$@"; }
+        error () { __generate_annotations $FUNCNAME "$@"; }
+
+        poetry run pytest | warning UserWarning
