@@ -39,5 +39,4 @@ jobs:
         poetry install
     - name: Test with pytest
       run: |
-        poetry run pytest | tee test.out
-        sed -nE 's/.*(UserWarning): (.*)/::warning title=\1::\2/p' test.out
+        poetry run pytest | sed -E 's/.*(UserWarning)/::warning title=\1::\0/'
