@@ -12,7 +12,7 @@ from typing_extensions import override
 from tap_spotify.client import SpotifyStream
 from tap_spotify.schemas.artist import ArtistObject
 from tap_spotify.schemas.audio_features import AudioFeaturesObject
-from tap_spotify.schemas.track import TrackObject
+from tap_spotify.schemas.track import PlaylistTrackObject, TrackObject
 from tap_spotify.schemas.utils.rank import Rank
 from tap_spotify.schemas.utils.synced_at import SyncedAt
 
@@ -197,7 +197,7 @@ class _PlaylistTracksStream(_RankStream, _SyncedAtStream, _TracksStream):
 
     records_jsonpath = "$.tracks.items[*].track"
     schema = th.PropertiesList(
-        *TrackObject,
+        *PlaylistTrackObject,
         *AudioFeaturesObject,
         *Rank,
         *SyncedAt,
