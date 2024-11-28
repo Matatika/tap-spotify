@@ -1,3 +1,6 @@
+> [!CAUTION]
+> As of 2024-11-28, most streams are currently broken due to [sudden breaking changes in the Spotify Web API](https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api) - tracked in https://github.com/Matatika/tap-spotify/issues/116
+
 # tap-spotify
 
 `tap-spotify` is a Singer tap for Spotify.
