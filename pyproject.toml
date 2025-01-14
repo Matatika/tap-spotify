@@ -47,8 +47,6 @@ target-version = "py38"
 [tool.ruff.lint]
 ignore = [
     "ANN001",  # missing-type-function-argument
-    "ANN101",  # missing-type-self
-    "ANN102",  # missing-type-cls
     "ANN201",  # missing-return-type-undocumented-public-function
     "ANN202",  # missing-return-type-private-function
     "COM812",  # missing-trailing-comma
