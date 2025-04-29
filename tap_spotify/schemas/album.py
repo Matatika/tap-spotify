@@ -15,6 +15,7 @@ AlbumObject = th.PropertiesList(
     th.Property("href", th.StringType),
     th.Property("id", th.StringType),
     th.Property("images", th.ArrayType(ImageObject)),
+    th.Property("is_playable", th.BooleanType),
     th.Property("name", th.StringType),
     th.Property("release_date", th.StringType),
     th.Property("release_date_precision", th.StringType),
