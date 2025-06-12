@@ -29,3 +29,9 @@ TrackObject = th.PropertiesList(
     th.Property("type", th.StringType),
     th.Property("uri", th.StringType),
 )
+
+PlaylistTrackObject = th.PropertiesList(
+    *TrackObject,
+    th.Property("episode", th.BooleanType),
+    th.Property("track", th.BooleanType),
+)
