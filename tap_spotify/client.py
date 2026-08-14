@@ -1,7 +1,4 @@
-"""REST client handling, including SpotifyStream base class.
-
-Copyright (c) 2026 Meltano.
-"""
+"""REST client handling, including SpotifyStream base class."""
 
 from __future__ import annotations
 

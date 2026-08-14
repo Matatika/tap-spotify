@@ -1,7 +1,4 @@
-"""Spotify entry point.
-
-Copyright (c) 2026 Meltano.
-"""
+"""Spotify entry point."""
 
 from __future__ import annotations
 

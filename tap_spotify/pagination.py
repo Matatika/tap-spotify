@@ -1,7 +1,4 @@
-"""Pagination classes for tap-spotify.
-
-Copyright (c) 2026 Meltano.
-"""
+"""Pagination classes for tap-spotify."""
 
 from singer_sdk.pagination import BaseHATEOASPaginator
 from typing_extensions import override
