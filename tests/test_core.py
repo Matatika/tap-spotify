@@ -1,4 +1,7 @@
-"""Tests standard tap features using the built-in SDK tests library."""
+"""Tests standard tap features using the built-in SDK tests library.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from singer_sdk.testing import SuiteConfig, get_tap_test_class
 

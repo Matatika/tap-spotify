@@ -1,4 +1,7 @@
-"""Schema definitions for artist objects."""
+"""Schema definitions for artist objects.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from singer_sdk import typing as th
 
