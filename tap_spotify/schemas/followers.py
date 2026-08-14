@@ -1,4 +1,7 @@
-"""Schema definitions for followers objects."""
+"""Schema definitions for followers objects.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from singer_sdk import typing as th
 

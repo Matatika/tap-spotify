@@ -1,1 +1,4 @@
-"""Test suite for tap-spotify."""
+"""Test suite for tap-spotify.
+
+Copyright (c) 2026 Meltano.
+"""

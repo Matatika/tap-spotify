@@ -1,4 +1,7 @@
-"""Schema definitions for external objects."""
+"""Schema definitions for external objects.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from singer_sdk import typing as th
 

@@ -1,4 +1,7 @@
-"""Schema definitions for audio features objects."""
+"""Schema definitions for audio features objects.
+
+Copyright (c) 2026 Meltano.
+"""
 
 from singer_sdk.typing import (
     IntegerType,
