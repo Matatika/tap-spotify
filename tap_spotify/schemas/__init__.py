@@ -1,4 +1,3 @@
-"""Schema definitions for tap-spotify.
+# Copyright (c) 2026 Meltano.
 
-Copyright (c) 2026 Meltano.
-"""
+"""Schema definitions for tap-spotify."""

@@ -23,6 +23,15 @@ repos:
   - id: check-dependabot
   - id: check-github-workflows
 
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.5.6
+  hooks:
+  - id: insert-license
+    files: \.py$
+    args:
+    - --license-filepath=license_header.txt
+    - --use-current-year
+
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.16.1
   hooks:
