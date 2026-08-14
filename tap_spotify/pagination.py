@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Meltano.
+
 """Pagination classes for tap-spotify."""
 
 from singer_sdk.pagination import BaseHATEOASPaginator

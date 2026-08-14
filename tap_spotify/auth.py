@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Meltano.
+
 """Spotify Authentication."""
 
 from singer_sdk.authenticators import OAuthAuthenticator, SingletonMeta

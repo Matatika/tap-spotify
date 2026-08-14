@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Meltano.
+
 """Spotify tap class."""
 
 from singer_sdk import Tap

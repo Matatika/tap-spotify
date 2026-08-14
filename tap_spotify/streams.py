@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Meltano.
+
 """Stream type classes for tap-spotify."""
 
 from __future__ import annotations

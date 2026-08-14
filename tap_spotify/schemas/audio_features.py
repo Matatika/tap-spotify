@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Meltano.
+
 """Schema definitions for audio features objects."""
 
 from singer_sdk.typing import (
