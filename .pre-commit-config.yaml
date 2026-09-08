@@ -18,7 +18,7 @@ repos:
   - id: trailing-whitespace
 
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0.37.4
+  rev: 0.38.0
   hooks:
   - id: check-dependabot
   - id: check-github-workflows
@@ -33,13 +33,13 @@ repos:
     - --use-current-year
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.16.1
+  rev: v0.16.6
   hooks:
   - id: ruff-check
   - id: ruff-format
 
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v2.3.0
+  rev: v2.3.1
   hooks:
   - id: mypy
     additional_dependencies:
